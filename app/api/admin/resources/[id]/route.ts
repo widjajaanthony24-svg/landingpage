@@ -7,17 +7,19 @@ async function checkAdmin() {
   return session?.user?.email === (process.env.ADMIN_EMAIL || "buildwanthony@gmail.com");
 }
 
-export async function DELETE(_: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(_: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   if (!(await checkAdmin())) return new NextResponse("Unauthorized", { status: 401 });
-  await prisma.resource.delete({ where: { id: params.id } });
+  const { id } = await params;
+  await prisma.resource.delete({ where: { id } });
   return new NextResponse(null, { status: 204 });
 }
 
-export async function PATCH(req: NextRequest, { params }: { params: { id: string } }) {
+export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   if (!(await checkAdmin())) return new NextResponse("Unauthorized", { status: 401 });
+  const { id } = await params;
   const body = await req.json();
   const resource = await prisma.resource.update({
-    where: { id: params.id },
+    where: { id },
     data: {
       title: body.title,
       slug: body.slug,

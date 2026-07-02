@@ -7,11 +7,12 @@ async function checkAdmin() {
   return session?.user?.email === (process.env.ADMIN_EMAIL || "buildwanthony@gmail.com");
 }
 
-export async function PATCH(req: NextRequest, { params }: { params: { id: string } }) {
+export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   if (!(await checkAdmin())) return new NextResponse("Unauthorized", { status: 401 });
+  const { id } = await params;
   const body = await req.json();
   const video = await prisma.video.update({
-    where: { id: params.id },
+    where: { id },
     data: {
       title: body.title,
       youtubeUrl: body.youtubeUrl,
@@ -25,8 +26,9 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
   return NextResponse.json(video);
 }
 
-export async function DELETE(_: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(_: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   if (!(await checkAdmin())) return new NextResponse("Unauthorized", { status: 401 });
-  await prisma.video.delete({ where: { id: params.id } });
+  const { id } = await params;
+  await prisma.video.delete({ where: { id } });
   return new NextResponse(null, { status: 204 });
 }
