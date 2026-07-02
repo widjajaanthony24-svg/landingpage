@@ -7,8 +7,9 @@ import { NewsletterCTA } from "@/components/sections/newsletter-cta";
 
 export const revalidate = 60;
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const post = await prisma.blogPost.findUnique({ where: { slug: params.slug } });
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const post = await prisma.blogPost.findUnique({ where: { slug } });
   if (!post) return {};
   return {
     title: post.title,
@@ -33,8 +34,9 @@ function renderMarkdown(md: string) {
     .replace(/\n/g, "<br />");
 }
 
-export default async function PostPage({ params }: { params: { slug: string } }) {
-  const post = await prisma.blogPost.findUnique({ where: { slug: params.slug, published: true } });
+export default async function PostPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const post = await prisma.blogPost.findUnique({ where: { slug, published: true } });
   if (!post) notFound();
 
   return (
