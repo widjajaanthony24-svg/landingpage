@@ -8,18 +8,20 @@ async function checkAdmin() {
   return session?.user?.email === adminEmail;
 }
 
-export async function GET(_: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(_: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   if (!(await checkAdmin())) return new NextResponse("Unauthorized", { status: 401 });
-  const post = await prisma.blogPost.findUnique({ where: { id: params.id } });
+  const { id } = await params;
+  const post = await prisma.blogPost.findUnique({ where: { id } });
   if (!post) return new NextResponse("Not found", { status: 404 });
   return NextResponse.json(post);
 }
 
-export async function PATCH(req: NextRequest, { params }: { params: { id: string } }) {
+export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   if (!(await checkAdmin())) return new NextResponse("Unauthorized", { status: 401 });
+  const { id } = await params;
   const body = await req.json();
   const post = await prisma.blogPost.update({
-    where: { id: params.id },
+    where: { id },
     data: {
       title: body.title,
       slug: body.slug,
@@ -34,8 +36,9 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
   return NextResponse.json(post);
 }
 
-export async function DELETE(_: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(_: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   if (!(await checkAdmin())) return new NextResponse("Unauthorized", { status: 401 });
-  await prisma.blogPost.delete({ where: { id: params.id } });
+  const { id } = await params;
+  await prisma.blogPost.delete({ where: { id } });
   return new NextResponse(null, { status: 204 });
 }
