@@ -8,12 +8,13 @@ const resourceTitles: Record<string, string> = {
   "founder-prompt-library": "Founder Prompt Library",
 };
 
-export default function ThankYouPage({
+export default async function ThankYouPage({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
-  const title = resourceTitles[params.slug] ?? "your resource";
+  const { slug } = await params;
+  const title = resourceTitles[slug] ?? "your resource";
 
   return (
     <div className="pt-24 min-h-screen flex items-center">
