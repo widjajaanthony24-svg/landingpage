@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowRight, ExternalLink } from "lucide-react";
 
@@ -83,11 +84,15 @@ export function FeaturedProject() {
               </div>
             </div>
 
-            {/* Visual placeholder */}
-            <div className="md:w-72 h-40 md:h-48 bg-muted rounded-md flex items-center justify-center border border-border">
-              <span className="text-3xl font-bold font-mono text-muted-foreground/30">
-                AIDAL
-              </span>
+            {/* AIDAL logo */}
+            <div className="md:w-72 h-40 md:h-48 bg-muted rounded-md flex items-center justify-center border border-border p-8">
+              <Image
+                src="/images/aidal-logo.png"
+                alt="AIDAL logo"
+                width={200}
+                height={200}
+                className="w-full h-full object-contain dark:invert"
+              />
             </div>
           </div>
         </motion.div>

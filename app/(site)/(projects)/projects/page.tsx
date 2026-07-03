@@ -16,7 +16,7 @@ const projects = [
     status: "Active",
     year: "2024–",
     stack: ["Next.js", "TypeScript", "PostgreSQL", "AI"],
-    url: "https://aidal.io",
+    url: "https://tryaidal.com",
     featured: true,
   },
   {
