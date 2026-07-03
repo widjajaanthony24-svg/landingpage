@@ -4,29 +4,13 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight, Download } from "lucide-react";
 
-const resources = [
-  {
-    slug: "founder-os",
-    title: "Founder OS",
-    description: "My complete operating system for running a startup solo.",
-    category: "Founder OS",
-    downloads: 412,
-  },
-  {
-    slug: "eu-ai-act-cheatsheet",
-    title: "EU AI Act Cheatsheet",
-    description: "What every AI founder needs to know. One-page reference.",
-    category: "AI Trust Toolkit",
-    downloads: 388,
-  },
-  {
-    slug: "cold-email-crm",
-    title: "Cold Email CRM Template",
-    description: "The exact Notion CRM I use to track every cold email.",
-    category: "Enterprise Sales OS",
-    downloads: 297,
-  },
-];
+const resources: {
+  slug: string;
+  title: string;
+  description: string;
+  category: string;
+  downloads: number;
+}[] = [];
 
 export function PopularResources() {
   return (
@@ -44,6 +28,11 @@ export function PopularResources() {
           </Link>
         </div>
 
+        {resources.length === 0 ? (
+          <p className="text-sm text-muted-foreground py-8">
+            No resources yet. Check back soon.
+          </p>
+        ) : (
         <div className="grid sm:grid-cols-3 gap-4">
           {resources.map((resource, i) => (
             <motion.div
@@ -77,6 +66,7 @@ export function PopularResources() {
             </motion.div>
           ))}
         </div>
+        )}
       </div>
     </section>
   );

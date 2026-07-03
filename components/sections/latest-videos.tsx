@@ -5,26 +5,12 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowRight, Play } from "lucide-react";
 
-const videos = [
-  {
-    id: "dQw4w9WgXcQ",
-    title: "Building AIDAL: Week 1 Update",
-    category: "Founder Journey",
-    duration: "12:34",
-  },
-  {
-    id: "dQw4w9WgXcQ",
-    title: "How I Structure My AI Compliance Research",
-    category: "AI Systems",
-    duration: "8:21",
-  },
-  {
-    id: "dQw4w9WgXcQ",
-    title: "Cold Email Diary: Getting My First Enterprise Call",
-    category: "Cold Email Diary",
-    duration: "15:07",
-  },
-];
+const videos: {
+  id: string;
+  title: string;
+  category: string;
+  duration: string;
+}[] = [];
 
 export function LatestVideos() {
   return (
@@ -42,6 +28,11 @@ export function LatestVideos() {
           </Link>
         </div>
 
+        {videos.length === 0 ? (
+          <p className="text-sm text-muted-foreground py-8">
+            No videos yet. Check back soon.
+          </p>
+        ) : (
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {videos.map((video, i) => (
             <motion.a
@@ -78,6 +69,7 @@ export function LatestVideos() {
             </motion.a>
           ))}
         </div>
+        )}
       </div>
     </section>
   );

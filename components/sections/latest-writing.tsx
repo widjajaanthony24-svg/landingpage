@@ -5,35 +5,14 @@ import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 
 // Static placeholder posts — replace with DB/MDX fetch
-const posts = [
-  {
-    slug: "why-ai-needs-a-trust-layer",
-    title: "Why AI Needs a Trust Layer",
-    excerpt:
-      "Trust isn't a feature you bolt on at the end. It has to be the foundation. Here's why I'm building AIDAL.",
-    date: "2024-11-01",
-    readingTime: 6,
-    tags: ["AI", "Trust", "AIDAL"],
-  },
-  {
-    slug: "cold-email-lessons-building-aidal",
-    title: "100 Cold Emails Later: What Actually Works",
-    excerpt:
-      "I sent 100 cold emails to enterprise buyers. Here's what I learned about getting replies from people who actually matter.",
-    date: "2024-10-20",
-    readingTime: 8,
-    tags: ["Sales", "Founder"],
-  },
-  {
-    slug: "eu-ai-act-for-founders",
-    title: "The EU AI Act Explained for Founders",
-    excerpt:
-      "What the EU AI Act actually means if you're building an AI product and shipping to European users.",
-    date: "2024-10-05",
-    readingTime: 10,
-    tags: ["Regulation", "EU AI Act"],
-  },
-];
+const posts: {
+  slug: string;
+  title: string;
+  excerpt: string;
+  date: string;
+  readingTime: number;
+  tags: string[];
+}[] = [];
 
 export function LatestWriting() {
   return (
@@ -51,6 +30,11 @@ export function LatestWriting() {
           </Link>
         </div>
 
+        {posts.length === 0 ? (
+          <p className="text-sm text-muted-foreground py-8">
+            No posts yet. Check back soon.
+          </p>
+        ) : (
         <div className="divide-y divide-border">
           {posts.map((post, i) => (
             <motion.article
@@ -91,6 +75,7 @@ export function LatestWriting() {
             </motion.article>
           ))}
         </div>
+        )}
       </div>
     </section>
   );

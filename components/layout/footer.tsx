@@ -2,15 +2,19 @@ import Link from "next/link";
 import { Github, Linkedin, Twitter, Youtube } from "lucide-react";
 
 const socialLinks = [
-  { href: "https://github.com/buildwanthony", label: "GitHub", icon: Github },
   {
-    href: "https://linkedin.com/in/buildwanthony",
+    href: "https://github.com/widjajaanthony24-svg",
+    label: "GitHub",
+    icon: Github,
+  },
+  {
+    href: "https://www.linkedin.com/in/anthony-widjaja-b5810b406",
     label: "LinkedIn",
     icon: Linkedin,
   },
   { href: "https://x.com/buildwanthony", label: "X", icon: Twitter },
   {
-    href: "https://youtube.com/@buildwanthony",
+    href: "https://youtube.com/@Aidal-t7p",
     label: "YouTube",
     icon: Youtube,
   },

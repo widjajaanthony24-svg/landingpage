@@ -73,7 +73,7 @@ export function FeaturedProject() {
                   Read case study <ArrowRight size={14} />
                 </Link>
                 <a
-                  href="https://aidal.io"
+                  href="https://tryaidal.com"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
