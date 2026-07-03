@@ -34,7 +34,7 @@ export function FeaturedProject() {
                   Active
                 </span>
                 <span className="text-xs text-muted-foreground font-mono">
-                  2024 — Present
+                  2026 — Present
                 </span>
               </div>
 

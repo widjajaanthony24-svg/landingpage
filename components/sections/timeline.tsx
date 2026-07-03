@@ -4,25 +4,25 @@ import { motion } from "framer-motion";
 
 const events = [
   {
-    date: "2024 Q4",
+    date: "2026 Q4",
     title: "Started building AIDAL",
     description:
       "Began developing the infrastructure layer for trustworthy AI after identifying a gap in the market.",
   },
   {
-    date: "2024 Q3",
+    date: "2026 Q3",
     title: "First enterprise call",
     description:
       "Cold email outreach led to first conversations with enterprise AI buyers.",
   },
   {
-    date: "2024 Q2",
+    date: "2026 Q2",
     title: "Launched newsletter",
     description:
       "Started Build With Anthony to document the journey and share what I was learning.",
   },
   {
-    date: "2024 Q1",
+    date: "2026 Q1",
     title: "Deep-dove into AI regulation",
     description:
       "Spent months studying the EU AI Act, NIST AI RMF, and governance frameworks.",

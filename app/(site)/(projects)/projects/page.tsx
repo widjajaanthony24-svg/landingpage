@@ -14,30 +14,10 @@ const projects = [
     description:
       "Infrastructure for trustworthy AI. Helping companies make their AI systems legible, auditable, and compliant.",
     status: "Active",
-    year: "2024–",
+    year: "2026–",
     stack: ["Next.js", "TypeScript", "PostgreSQL", "AI"],
     url: "https://tryaidal.com",
     featured: true,
-  },
-  {
-    slug: "eu-ai-act-tracker",
-    name: "EU AI Act Tracker",
-    description:
-      "Open-source tracker for EU AI Act implementation milestones and compliance dates.",
-    status: "Experiment",
-    year: "2024",
-    stack: ["Next.js", "MDX"],
-    featured: false,
-  },
-  {
-    slug: "founder-os",
-    name: "Founder OS Template",
-    description:
-      "Public Notion template for solo founders. Downloaded 400+ times.",
-    status: "Live",
-    year: "2024",
-    stack: ["Notion"],
-    featured: false,
   },
 ];
 
@@ -53,8 +33,8 @@ export default function ProjectsPage() {
             What I&apos;m building
           </h1>
           <p className="text-muted-foreground leading-relaxed">
-            AIDAL is the main thing. Everything else is experiments, tools, and
-            side projects that come out of the journey.
+            AIDAL is what I&apos;m building — infrastructure for trustworthy
+            AI.
           </p>
         </div>
 

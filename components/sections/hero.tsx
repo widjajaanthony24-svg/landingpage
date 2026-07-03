@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowRight, ExternalLink } from "lucide-react";
 
@@ -24,6 +25,17 @@ export function HeroSection() {
           animate="show"
           className="max-w-2xl"
         >
+          {/* Photo */}
+          <motion.div variants={item} className="mb-6">
+            <Image
+              src="/images/anthony-headshot.jpg"
+              alt="Anthony Widjaja"
+              width={56}
+              height={56}
+              className="w-14 h-14 rounded-full object-cover border border-border"
+            />
+          </motion.div>
+
           {/* Status pill */}
           <motion.div variants={item}>
             <span className="inline-flex items-center gap-2 text-xs font-mono text-muted-foreground border border-border rounded-full px-3 py-1 mb-8">
