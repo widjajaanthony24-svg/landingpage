@@ -9,48 +9,55 @@ const sections = [
   {
     title: "Hardware",
     items: [
-      { name: "MacBook Air M2 13\"", description: "Primary machine. Silent, fast, and never gets hot enough to matter." },
-      { name: "iPhone 14", description: "Communication, reading, and mobile testing." },
-      { name: "Sony WH-1000XM5", description: "Deep work. ANC is non-negotiable when building." },
+      { name: "Laptop", description: "My daily machine for coding, writing, and building." },
+      { name: "Redmi Note 15", description: "Testing, communication, and content creation." },
     ],
   },
   {
     title: "Software",
     items: [
-      { name: "VS Code", description: "Editor of choice. Copilot + GitHub integration." },
-      { name: "Notion", description: "Second brain. Founder OS, writing drafts, research." },
-      { name: "Linear", description: "Issue tracking for AIDAL. Clean and fast." },
-      { name: "Raycast", description: "Launcher, clipboard, snippets. Replaced Spotlight entirely." },
-      { name: "Arc Browser", description: "The only browser I've used in a year." },
-      { name: "Figma", description: "Design and wireframing." },
+      { name: "VS Code", description: "My editor. I don't know every feature yet, but I learn by building." },
+      { name: "GitHub", description: "Version control and my public portfolio." },
+      { name: "Railway", description: "Where I deploy most of my projects because it's simple and affordable." },
+      { name: "Notion", description: "My second brain. Every idea, reflection, and startup thought goes here." },
+      { name: "Pinterest", description: "My source of UI and design inspiration." },
+      { name: "PowerShell", description: "The terminal I spend too much time in." },
     ],
   },
   {
     title: "AI Stack",
     items: [
-      { name: "Claude (Anthropic)", description: "Primary reasoning and writing model. Best for long-form thinking." },
-      { name: "GPT-4o", description: "Quick tasks, code generation, image analysis." },
-      { name: "Perplexity", description: "Research with citations. Better than Google for technical queries." },
-      { name: "v0 (Vercel)", description: "UI prototyping from text." },
-      { name: "Cursor", description: "AI-native editor for faster shipping." },
+      { name: "Claude", description: "My primary coding partner. Most of my projects exist because Claude helps me move faster." },
+      { name: "ChatGPT", description: "Writing, scripts, and refining ideas." },
+      { name: "Perplexity", description: "Research and fact-checking." },
+      { name: "Grok", description: "Brainstorming and seeing different perspectives." },
+      { name: "Kimi & Manus", description: "Experimenting with alternative workflows and reasoning styles." },
     ],
   },
   {
     title: "Workflow",
     items: [
-      { name: "Morning block (6–9am)", description: "Deep work only. No meetings, no Slack, no email." },
-      { name: "Weekly review (Sunday)", description: "Review goals, clear inbox, set priorities for the week." },
-      { name: "Pomodoro (45/15)", description: "45-minute focused sprints, 15-minute breaks." },
-      { name: "Build in public", description: "Twitter threads and newsletter after every major milestone." },
+      { name: "Capture ideas immediately", description: "Most ideas come while I'm at the gym, walking, or doing something unrelated. I put everything into Notion." },
+      { name: "Build almost every day", description: "I don't have a strict schedule. I think, reflect, and build continuously." },
+      { name: "Learn by shipping", description: "I don't wait until I fully understand something. I build first and figure things out along the way." },
     ],
   },
   {
     title: "Books",
     items: [
-      { name: "Zero to One — Peter Thiel", description: "Still the best book on startups." },
-      { name: "The Mom Test — Rob Fitzpatrick", description: "Required reading before any customer conversation." },
-      { name: "Thinking in Systems — Donella Meadows", description: "How to understand complex systems. Applies to AI." },
-      { name: "The Innovator's Dilemma — Clayton Christensen", description: "Why incumbents fail. Directly relevant to AI trust." },
+      { name: "How to Win Friends and Influence People", description: "Taught me that people and relationships matter as much as products." },
+      { name: "The Lean Startup", description: "Made me think in experiments instead of assumptions." },
+      { name: "The Mom Test", description: "Changed how I talk to users and validate ideas." },
+    ],
+  },
+  {
+    title: "Current Focus",
+    items: [
+      { name: "Building", description: "AIDAL — infrastructure for trustworthy AI." },
+      { name: "Learning", description: "Distribution, enterprise sales, and storytelling." },
+      { name: "Experimenting", description: "How far one founder can go with AI." },
+      { name: "Challenge", description: "Building credibility and meeting the right people." },
+      { name: "Belief", description: "Great products don't matter if nobody knows you exist." },
     ],
   },
 ];
@@ -88,6 +95,15 @@ export default function UsesPage() {
                   </div>
                 ))}
               </div>
+              {section.title === "Workflow" && (
+                <div className="border-l-2 border-blue pl-6 py-1 mt-8">
+                  <p className="text-base text-muted-foreground italic leading-relaxed">
+                    I use Next.js because Claude suggested it. I still
+                    don&apos;t understand everything, but every project
+                    teaches me something new.
+                  </p>
+                </div>
+              )}
             </section>
           ))}
         </div>
