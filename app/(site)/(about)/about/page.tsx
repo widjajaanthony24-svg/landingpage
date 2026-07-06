@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Timeline } from "@/components/sections/timeline";
 import { NewsletterCTA } from "@/components/sections/newsletter-cta";
 
 export const metadata: Metadata = {
@@ -102,7 +101,6 @@ export default function AboutPage() {
         </section>
       </div>
 
-      <Timeline />
       <NewsletterCTA />
     </div>
   );

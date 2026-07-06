@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { Save, ArrowLeft, Loader2, Trash2 } from "lucide-react";
 import { RichEditor } from "@/components/editor/rich-editor";
+import { CoverImageUpload } from "@/components/admin/cover-image-upload";
 import slugify from "slugify";
 
 export default function EditPostPage() {
@@ -131,12 +132,9 @@ export default function EditPostPage() {
             className="flex-1 bg-muted border border-border rounded px-2 py-1 outline-none focus:ring-1 focus:ring-ring"
           />
         </div>
-        <input
-          type="text"
-          placeholder="Cover image URL"
+        <CoverImageUpload
           value={form.coverImage}
-          onChange={(e) => setForm((f) => ({ ...f, coverImage: e.target.value }))}
-          className="w-full text-sm bg-muted border border-border rounded-md px-3 py-2 outline-none focus:ring-1 focus:ring-ring placeholder:text-muted-foreground"
+          onChange={(coverImage) => setForm((f) => ({ ...f, coverImage }))}
         />
         <textarea
           placeholder="Short excerpt..."

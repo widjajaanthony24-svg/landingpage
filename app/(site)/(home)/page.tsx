@@ -5,7 +5,6 @@ import { LatestWriting } from "@/components/sections/latest-writing";
 import { LatestVideos } from "@/components/sections/latest-videos";
 import { PopularResources } from "@/components/sections/popular-resources";
 import { NewsletterCTA } from "@/components/sections/newsletter-cta";
-import { Timeline } from "@/components/sections/timeline";
 
 export default function HomePage() {
   return (
@@ -17,7 +16,6 @@ export default function HomePage() {
       <LatestVideos />
       <PopularResources />
       <NewsletterCTA />
-      <Timeline />
     </>
   );
 }
