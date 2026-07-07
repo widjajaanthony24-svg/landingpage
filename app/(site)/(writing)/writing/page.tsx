@@ -39,9 +39,21 @@ export default async function WritingPage() {
                       {post.publishedAt ? new Date(post.publishedAt).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" }) : ""}
                     </span>
                   </div>
-                  <div>
-                    <h2 className="text-base font-medium group-hover:text-blue transition-colors mb-1.5">{post.title}</h2>
-                    {post.excerpt && <p className="text-sm text-muted-foreground leading-relaxed">{post.excerpt}</p>}
+                  <div className="flex items-start gap-4">
+                    {post.coverImage && (
+                      <div className="w-20 h-20 rounded-md overflow-hidden shrink-0 border border-border">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={post.coverImage}
+                          alt=""
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    )}
+                    <div className="min-w-0">
+                      <h2 className="text-base font-medium group-hover:text-blue transition-colors mb-1.5">{post.title}</h2>
+                      {post.excerpt && <p className="text-sm text-muted-foreground leading-relaxed">{post.excerpt}</p>}
+                    </div>
                   </div>
                   <div className="flex items-center justify-between">
                     <div className="flex gap-2 flex-wrap">

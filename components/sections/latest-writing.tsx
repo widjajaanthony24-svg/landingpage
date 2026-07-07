@@ -1,20 +1,23 @@
-"use client";
-
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import { prisma } from "@/lib/db";
+import { LatestWritingList } from "./latest-writing-list";
 
-// Static placeholder posts — replace with DB/MDX fetch
-const posts: {
-  slug: string;
-  title: string;
-  excerpt: string;
-  date: string;
-  readingTime: number;
-  tags: string[];
-}[] = [];
+export async function LatestWriting() {
+  const posts = await prisma.blogPost.findMany({
+    where: { published: true },
+    orderBy: { publishedAt: "desc" },
+    take: 3,
+  });
 
-export function LatestWriting() {
+  const items = posts.map((post) => ({
+    slug: post.slug,
+    title: post.title,
+    excerpt: post.excerpt ?? "",
+    coverImage: post.coverImage,
+    date: (post.publishedAt ?? post.createdAt).toISOString(),
+  }));
+
   return (
     <section className="py-16 border-t border-border">
       <div className="container-wide">
@@ -30,51 +33,12 @@ export function LatestWriting() {
           </Link>
         </div>
 
-        {posts.length === 0 ? (
+        {items.length === 0 ? (
           <p className="text-sm text-muted-foreground py-8">
             No posts yet. Check back soon.
           </p>
         ) : (
-        <div className="divide-y divide-border">
-          {posts.map((post, i) => (
-            <motion.article
-              key={post.slug}
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              transition={{ delay: i * 0.07 }}
-              viewport={{ once: true }}
-            >
-              <Link
-                href={`/writing/${post.slug}`}
-                className="flex flex-col md:flex-row md:items-center justify-between py-5 gap-3 group"
-              >
-                <div className="flex-1">
-                  <h3 className="text-sm font-medium group-hover:text-blue transition-colors">
-                    {post.title}
-                  </h3>
-                  <p className="text-sm text-muted-foreground mt-1 line-clamp-1">
-                    {post.excerpt}
-                  </p>
-                </div>
-                <div className="flex items-center gap-4 shrink-0">
-                  <span className="text-xs font-mono text-muted-foreground">
-                    {post.readingTime} min
-                  </span>
-                  <span className="text-xs font-mono text-muted-foreground">
-                    {new Date(post.date).toLocaleDateString("en-US", {
-                      month: "short",
-                      day: "numeric",
-                    })}
-                  </span>
-                  <ArrowRight
-                    size={14}
-                    className="text-muted-foreground group-hover:text-foreground group-hover:translate-x-0.5 transition-all"
-                  />
-                </div>
-              </Link>
-            </motion.article>
-          ))}
-        </div>
+          <LatestWritingList posts={items} />
         )}
       </div>
     </section>
