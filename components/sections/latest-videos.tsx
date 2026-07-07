@@ -1,18 +1,36 @@
-"use client";
-
 import Link from "next/link";
-import Image from "next/image";
-import { motion } from "framer-motion";
-import { ArrowRight, Play } from "lucide-react";
+import { ArrowRight } from "lucide-react";
+import { prisma } from "@/lib/db";
+import { LatestVideosGrid } from "./latest-videos-grid";
 
-const videos: {
-  id: string;
-  title: string;
-  category: string;
-  duration: string;
-}[] = [];
+function extractYoutubeId(url: string): string | null {
+  const match = url.match(
+    /(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([\w-]{11})/
+  );
+  return match ? match[1] : null;
+}
 
-export function LatestVideos() {
+export async function LatestVideos() {
+  const videos = await prisma.video.findMany({
+    where: { published: true },
+    orderBy: { publishedAt: "desc" },
+    take: 3,
+  });
+
+  // Hide the whole section on the public site if nothing's published yet
+  if (videos.length === 0) return null;
+
+  const items = videos.map((video) => {
+    const ytId = extractYoutubeId(video.youtubeUrl);
+    return {
+      id: video.id,
+      youtubeUrl: video.youtubeUrl,
+      title: video.title,
+      category: video.category,
+      thumbnail: video.thumbnail || (ytId ? `https://i.ytimg.com/vi/${ytId}/hqdefault.jpg` : null),
+    };
+  });
+
   return (
     <section className="py-16 border-t border-border">
       <div className="container-wide">
@@ -28,48 +46,7 @@ export function LatestVideos() {
           </Link>
         </div>
 
-        {videos.length === 0 ? (
-          <p className="text-sm text-muted-foreground py-8">
-            No videos yet. Check back soon.
-          </p>
-        ) : (
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {videos.map((video, i) => (
-            <motion.a
-              key={`${video.id}-${i}`}
-              href={`https://youtube.com/watch?v=${video.id}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.1 }}
-              viewport={{ once: true }}
-              className="group"
-            >
-              <div className="relative aspect-video bg-muted rounded-md overflow-hidden border border-border mb-3">
-                <Image
-                  src={`https://i.ytimg.com/vi/${video.id}/hqdefault.jpg`}
-                  alt={video.title}
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-                <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                  <Play size={24} className="text-white fill-white" />
-                </div>
-                <span className="absolute bottom-2 right-2 text-xs font-mono bg-black/70 text-white px-1.5 py-0.5 rounded">
-                  {video.duration}
-                </span>
-              </div>
-              <p className="text-xs font-mono text-muted-foreground mb-1">
-                {video.category}
-              </p>
-              <h3 className="text-sm font-medium group-hover:text-blue transition-colors line-clamp-2">
-                {video.title}
-              </h3>
-            </motion.a>
-          ))}
-        </div>
-        )}
+        <LatestVideosGrid videos={items} />
       </div>
     </section>
   );

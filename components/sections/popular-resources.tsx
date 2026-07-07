@@ -1,18 +1,27 @@
-"use client";
-
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { ArrowRight, Download } from "lucide-react";
+import { ArrowRight } from "lucide-react";
+import { prisma } from "@/lib/db";
+import { PopularResourcesGrid } from "./popular-resources-grid";
 
-const resources: {
-  slug: string;
-  title: string;
-  description: string;
-  category: string;
-  downloads: number;
-}[] = [];
+export async function PopularResources() {
+  const resources = await prisma.resource.findMany({
+    where: { featured: true },
+    orderBy: { downloads: { _count: "desc" } },
+    take: 3,
+    include: { _count: { select: { downloads: true } } },
+  });
 
-export function PopularResources() {
+  // Hide the whole section on the public site if nothing's featured yet
+  if (resources.length === 0) return null;
+
+  const items = resources.map((resource) => ({
+    slug: resource.slug,
+    title: resource.title,
+    description: resource.description ?? "",
+    category: resource.category,
+    downloads: resource._count.downloads,
+  }));
+
   return (
     <section className="py-16 border-t border-border">
       <div className="container-wide">
@@ -28,45 +37,7 @@ export function PopularResources() {
           </Link>
         </div>
 
-        {resources.length === 0 ? (
-          <p className="text-sm text-muted-foreground py-8">
-            No resources yet. Check back soon.
-          </p>
-        ) : (
-        <div className="grid sm:grid-cols-3 gap-4">
-          {resources.map((resource, i) => (
-            <motion.div
-              key={resource.slug}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.1 }}
-              viewport={{ once: true }}
-              className="border border-border rounded-lg p-5 hover:border-muted-foreground/30 transition-colors group"
-            >
-              <p className="text-xs font-mono text-muted-foreground mb-3">
-                {resource.category}
-              </p>
-              <h3 className="text-sm font-medium mb-2 group-hover:text-blue transition-colors">
-                {resource.title}
-              </h3>
-              <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
-                {resource.description}
-              </p>
-              <div className="flex items-center justify-between">
-                <span className="text-xs text-muted-foreground flex items-center gap-1">
-                  <Download size={11} /> {resource.downloads}
-                </span>
-                <Link
-                  href={`/resources/${resource.slug}`}
-                  className="text-xs font-medium hover:text-blue transition-colors flex items-center gap-1"
-                >
-                  Get it <ArrowRight size={11} />
-                </Link>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-        )}
+        <PopularResourcesGrid resources={items} />
       </div>
     </section>
   );
